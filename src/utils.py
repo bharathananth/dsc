@@ -447,7 +447,7 @@ def sos_hash_output(values, jobs=1):
     Parallel hash
     FIXME: parallel not implemented for now
     '''
-    return [xxh(value).hexdigest() for value in values]
+    return [xxh(value.encode("utf-8")).hexdigest() for value in values]
 
 
 def chunks(l, n):

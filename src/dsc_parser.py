@@ -842,12 +842,12 @@ class DSC_Module:
         else:
             lib_signature = ''
         self.exe['signature'] = xxh(
-            ((executable(self.exe['path']).
+            (((executable(self.exe['path']).
               target_signature() if executable(self.exe['path']).target_exists(
               ) else fileMD5(self.exe['path'], partial=False)
               ) if len(self.exe['path']) else self.exe['content']) +
             (' '.join(self.exe['args']) if self.exe['args'] else '') +
-            lib_signature).hexdigest()
+            lib_signature).encode('utf-8')).hexdigest()
         self.plugin = Plugin(self.exe['type'], self.exe['signature'])
 
     def set_output(self, return_var):

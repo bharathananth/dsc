@@ -212,7 +212,7 @@ class DSC_Translator:
             return
         libs = uniq_list(libs)
         installed_libs = []
-        fn = f'{DSC_CACHE}/{self.db}.{xxh("".join(libs)).hexdigest()}.{lib_type.lower()}-info'
+        fn = f'{DSC_CACHE}/{self.db}.{xxh("".join(libs).encode("utf-8")).hexdigest()}.{lib_type.lower()}-info'
         for item in glob.glob(
                 f'{DSC_CACHE}/{self.db}.*.{lib_type.lower()}-info'):
             if item == fn:
@@ -368,7 +368,7 @@ class DSC_Translator:
                 self.output_string += "{3} = sos_hash_output(['{0}'{1} {2}])".\
                                       format(' '.join([self.step.name,
                                                        ' '.join([x.replace('{', '{{').replace('}', '}}') for x in self.step.exe['args']]) if self.step.exe['args'] else ''] \
-                                                      + self.step.exe['file'] + [f'{k}:{xxh(str(self.step.rv[k])).hexdigest()}' for k in sorted(self.step.rv)] \
+                                                      + self.step.exe['file'] + [f'{k}:{xxh(str(self.step.rv[k]).encode("utf-8")).hexdigest()}' for k in sorted(self.step.rv)] \
                                                       + [f'{k}:{self.step.rf[k]}' for k in sorted(self.step.rf)] \
                                                       + [f'{x}:{{}}' for x in reversed(self.params)]),
                                              format_string, self.loop_string[0] + self.filter_string, output_lhs)
@@ -427,7 +427,7 @@ class DSC_Translator:
                         self.action += ", env={'PATH': '%s:' + os.environ['PATH']}" % ":".join(self.step.path)
                     self.action += plugin.get_cmd_args(cmd['args'],
                                                        self.params)
-                    signature.append(cmd['signature'] + xxh(self.param_string + self.input_string + self.output_string).hexdigest())
+                    signature.append(cmd['signature'] + xxh((self.param_string + self.input_string + self.output_string).encode('utf-8')).hexdigest())
                     # Add action
                     if len(cmd['path']) == 0:
                         if self.debug:
