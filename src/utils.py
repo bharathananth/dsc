@@ -278,7 +278,7 @@ def get_slice(value, all_tuple=True, mismatch_quit=True, non_negative=True):
     exe[1:9:2] ==> (exe, (0,2,4,6,8))
     '''
     try:
-        slicearg = re.search('\[(.*?)\]', value).group(1)
+        slicearg = re.search(r'\[(.*?)\]', value).group(1)
     except Exception as e:
         if mismatch_quit:
             raise AttributeError(
@@ -555,7 +555,7 @@ def round_print(text, sep, pc=None):
 
 
 def install_package(lib, libtype, dryrun=False, autoinstall=False):
-    groups = re.search('(.*?)\((.*?)\)', lib)
+    groups = re.search(r'(.*?)\((.*?)\)', lib)
     if groups is not None:
         lib = groups.group(1).strip()
         versions = [x.strip() for x in groups.group(2).split(',')]

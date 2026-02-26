@@ -77,13 +77,13 @@ class DSC_Script:
                     # which can be used to derive other modules but not to be used directly
                     self.base_modules.append(text[0].strip())
                 res.append(f'{text[0]}:')
-                exe += re.sub('\\\\$', '\n', text[1])
+                exe += re.sub(r'\\\\$', '\n', text[1])
                 parens_counter.update(Counter(text[1]))
             else:
                 if (headline and parens_counter['('] != parens_counter[')']) \
                    or (headline and len(text) == 1):
                     # still contents for exe
-                    exe += re.sub('\\\\$', '\n', line)
+                    exe += re.sub(r'\\\\$', '\n', line)
                 else:
                     headline = False
                     if len(text) == 1:
@@ -1244,7 +1244,7 @@ class DSC_Section:
                 self.sequence = self.content['run']
         relevant_groups = []
         if 'define' in self.content:
-            relevant_groups = re.compile('[,\(\)\*]').sub(' ', ' '.join(self.sequence)).split()
+            relevant_groups = re.compile(r'[,\(\)\*]').sub(' ', ' '.join(self.sequence)).split()
             relevant_groups = [x for x in self.content['define'].keys() if x in relevant_groups and '*' not in self.content['define'][x]]
         self.sequence = [(x, ) if isinstance(x, str) else x for x in sum(
             [self.OP(self.expand_ensemble(y)) for y in self.sequence], [])]
@@ -1332,7 +1332,7 @@ class DSC_Section:
             else:
                 self.concats[lhs] = [
                     x.strip()
-                    for x in re.split("\,|\*",
+                    for x in re.split(r"\,|\*",
                                       rhs.replace(')', '').replace('(', ''))
                 ]
             # http://www.regular-expressions.info/wordboundaries.html

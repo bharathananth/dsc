@@ -155,7 +155,7 @@ class ExpandActions(YLine):
         if isinstance(value, str):
             for name in list(self.method.keys()):
                 pos = [
-                    m.end() - 1 for m in re.finditer(f'{name}(\(|\{{)', value)
+                    m.end() - 1 for m in re.finditer(rf'{name}(\(|\{{)', value)
                 ]
                 p_end = 0
                 replacements = []
@@ -531,7 +531,7 @@ def parse_exe(string):
     action_dict = dict()
     idx = 0
     for name in ext_map:
-        pos = [m.end() - 1 for m in re.finditer(f'{name}\(', string)]
+        pos = [m.end() - 1 for m in re.finditer(rf'{name}\(', string)]
         p_end = 0
         replacements = []
         for p in pos:

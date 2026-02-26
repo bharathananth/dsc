@@ -265,8 +265,8 @@ class Query_Processor:
         '''
         res = []
         for item in ' '.join(values).split():
-            if re.search('^\w+\.\w+$', item) or re.search(
-                    '^\w+\.output.\w+$', item):
+            if re.search(r'^\w+\.\w+$', item) or re.search(
+                    r'^\w+\.output.\w+$', item):
                 item, y = item.split('.', 1)
                 if not y:
                     raise FormatError(f"Field for module ``{item}`` is empty.")
