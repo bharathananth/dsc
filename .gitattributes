@@ -4,3 +4,5 @@ vignettes/* linguist-generated=true
 dscrutils/man/*.Rd linguist-generated=true
 scrutils/inst/* linguist-generated=true
 release.sos linguist-generated=true
+# SCM syntax highlighting & preventing 3-way merges
+pixi.lock merge=binary linguist-language=YAML linguist-generated=true -diff

@@ -5,4 +5,8 @@ README.rst
 **/*.bak
 **/.sos
 
+**/.dsc# pixi environments
+.pixi/*
+!.pixi/config.toml
+
 **/.dsc
