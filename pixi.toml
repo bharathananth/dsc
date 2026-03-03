@@ -2,13 +2,11 @@
 authors = ["Bharath Air <bharath.ananthsub@gmail.com>"]
 channels = ["conda-forge"]
 name = "dsc"
-platforms = ["osx-arm64"]
+platforms = ["osx-arm64", "linux-64", "win-64"]
 version = "0.1.0"
 
-[tasks]
-
 [dependencies]
-python = "3.12.*"
+python = ">=3.9,<3.13"
 
 [pypi-dependencies]
 dsc = {path = ".", editable = true}
@@ -24,3 +22,26 @@ sympy = "*"
 tzlocal = "*"
 sos = { git = "https://github.com/vatlab/sos.git" }
 sos-pbs = { git = "https://github.com/vatlab/sos-pbs.git" }
+
+[feature.py310.dependencies]
+python = "3.10.*"
+
+[feature.py310.tasks]
+test = "cd vignettes && sh test.sh"
+
+[feature.py311.dependencies]
+python = "3.11.*"
+
+[feature.py311.tasks]
+test = "cd vignettes && sh test.sh"
+
+[feature.py309.dependencies]
+python = "3.9.*"
+
+[environments]
+py310 = ["py310"]
+py311 = ["py311"]
+py309 = ["py309"]
+
+[tasks]
+test = "cd vignettes && sh test.sh"
